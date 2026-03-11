@@ -1,16 +1,220 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Oasyra - Bienestar Emocional</title>
-    <meta name="description" content="Oasyra es una aplicación de bienestar emocional que te ayuda a manejar la ansiedad, hacer seguimiento de medicación, y realizar ejercicios de respiración y meditación." />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjAgNEMxMS4xNjQgNCA0IDExLjE2NCA0IDIwQzQgMjguODM2IDExLjE2NCAzNiAyMCAzNkMyOC44MzYgMzYgMzYgMjguODM2IDM2IDIwQzM2IDExLjE2NCAyOC44MzYgNCAyMCA0Wk0xNC44IDI0LjE2QzE0LjggMjEuNiAxNi44NTcgMTkuNTQzIDE5LjQxNyAxOS41NDNDMjEuOTc3IDE5LjU0MyAyNC4wMzQgMjEuNiAyNC4wMzQgMjQuMTZDMjQuMDM0IDI2LjcyIDIxLjk3NyAyOC43NzcgMTkuNDE3IDI4Ljc3N0MxNi44NTcgMjguNzc3IDE0LjggMjYuNzIgMTQuOCAyNC4xNlpNMjMuMiAxNC40QzIzLjIgMTYuMjc1IDIxLjY3NSAxNy44IDIwIDE3LjhDMTguMTI1IDE3LjggMTYuODQyIDE2LjI3NSAxNi44NDIgMTQuNEMxNi44NDIgMTIuNTI1IDE4LjEyNSAxMSAxOS44NDMgMTFDMjEuNjc1IDExIDIzLjIgMTIuNTI1IDIzLjIgMTQuNFoiIGZpbGw9IiM3QjhDREUiLz48L3N2Zz4=" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sergio El Tagsista | Reservar es de Cobardes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --taxi-yellow: #facc15;
+            --taxi-black: #000000;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f4f6;
+            scroll-behavior: smooth;
+        }
+        .header-font {
+            font-family: 'Bangers', cursive;
+        }
+        .marker-font {
+            font-family: 'Permanent Marker', cursive;
+        }
+        .taxi-checker {
+            background-image: linear-gradient(45deg, #000 25%, transparent 25%), 
+                              linear-gradient(-45deg, #000 25%, transparent 25%), 
+                              linear-gradient(45deg, transparent 75%, #000 75%), 
+                              linear-gradient(-45deg, transparent 75%, #000 75%);
+            background-size: 30px 30px;
+            background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+            background-color: var(--taxi-yellow);
+        }
+        .status-flicker {
+            animation: flicker 2s infinite;
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .shaking {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body class="text-gray-900 selection:bg-yellow-400">
+
+    <!-- Sección de Reserva Persistente (La pesadilla de Sergio) -->
+    <div class="bg-black text-white py-4 px-6 sticky top-0 z-[100] border-b-4 border-yellow-500 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center space-x-2">
+            <span class="w-3 h-3 bg-red-600 rounded-full status-flicker"></span>
+            <span class="text-xs font-black uppercase tracking-widest text-yellow-500">Estado: En el quinto sueño</span>
+        </div>
+        
+        <button id="main-reserve-btn" class="bg-yellow-400 text-black px-6 py-2 rounded font-black uppercase italic hover:bg-white transition-all transform active:scale-90 shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+            🚕 Reservar Viaje
+        </button>
+    </div>
+
+    <!-- Header / Logo -->
+    <header class="taxi-checker py-16 px-6 border-b-8 border-black">
+        <div class="max-w-4xl mx-auto bg-white p-10 rounded shadow-2xl border-4 border-black text-center transform rotate-1">
+            <h1 class="header-font text-7xl md:text-9xl tracking-tighter uppercase mb-2">Sergio</h1>
+            <h2 class="header-font text-4xl md:text-6xl text-yellow-500 bg-black inline-block px-6 py-2 mb-6">El Tagsista</h2>
+            <p class="text-2xl italic font-bold text-gray-800 mt-4 underline decoration-yellow-400 decoration-4">"Si no te llevo, es porque ya estoy cansado."</p>
+        </div>
+    </header>
+
+    <!-- Intro Narrativa -->
+    <section class="py-16 container mx-auto px-6 max-w-3xl">
+        <div class="bg-white border-4 border-black p-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+            <h3 class="marker-font text-3xl mb-4">¿Buscas puntualidad?</h3>
+            <p class="text-lg leading-relaxed mb-6 font-medium">
+                Sigue buscando. ¿Buscas un coche limpio? El polvo le da carácter. Soy Sergio, el primer **Tagsista Procrastinador** de la ciudad. Mi misión es llevarte a tu destino... siempre y cuando no haya mucho tráfico, no me pille lejos y no haya una serie buena en Netflix.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tabla de (No) Éxito -->
+    <section class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="header-font text-5xl text-center mb-10">Servicios (Si me apetece)</h2>
+            <div class="bg-white border-4 border-black overflow-hidden shadow-xl">
+                <table class="w-full text-left">
+                    <thead class="bg-black text-yellow-400 font-black uppercase">
+                        <tr>
+                            <th class="p-4">Servicio</th>
+                            <th class="p-4">Probabilidad de Éxito</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-bold">
+                        <tr class="border-b-2 border-gray-200">
+                            <td class="p-4">Trayecto Corto (menos de 500m)</td>
+                            <td class="p-4 text-red-600">5% (Mejor camina)</td>
+                        </tr>
+                        <tr class="border-b-2 border-gray-200 bg-gray-50">
+                            <td class="p-4">Trayecto Largo</td>
+                            <td class="p-4 text-orange-600">10% (Me da pereza volver)</td>
+                        </tr>
+                        <tr class="border-b-2 border-gray-200">
+                            <td class="p-4">Recogida al Aeropuerto</td>
+                            <td class="p-4 text-yellow-600">30% (Solo mochila y café)</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-4">Servicio de Escucha</td>
+                            <td class="p-4 text-green-600">100% (Bostezo con empatía)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filosofía Sergio -->
+    <section class="py-16 container mx-auto px-6 max-w-4xl">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="p-6 border-4 border-black bg-yellow-200 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <h4 class="font-black uppercase mb-2 italic">Honestidad Brutal</h4>
+                <p>Si estoy echando la siesta, te colgaré directamente. No esperes otra cosa.</p>
+            </div>
+            <div class="p-6 border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <h4 class="font-black uppercase mb-2 italic">Rutas "Creativas"</h4>
+                <p>Sin GPS. Si nos perdemos, es una "aventura espontánea" pagada por ti.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios Reales -->
+    <section class="py-12 bg-black text-white text-center italic">
+        <div class="max-w-2xl mx-auto px-6">
+            <p class="text-2xl mb-4">"Sergio llegó 40 minutos tarde, me hizo bajar a la esquina para no tener que dar la vuelta y me pidió que le sujetara el bocadillo mientras conducía."</p>
+            <span class="marker-font text-yellow-400 text-xl">— Un cliente (mi primo)</span>
+        </div>
+    </section>
+
+    <!-- Tarifas -->
+    <section class="py-20">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="header-font text-5xl text-center mb-12 italic underline decoration-yellow-400">Tarifas Procrastinadas</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white border-4 border-black p-6 text-center shadow-lg">
+                    <p class="text-sm font-bold uppercase text-gray-500">Tarifa Plana</p>
+                    <p class="text-4xl font-black my-2">20€</p>
+                    <p class="text-xs">Por arrancar el motor (o intentarlo).</p>
+                </div>
+                <div class="bg-yellow-400 border-4 border-black p-6 text-center shadow-lg transform scale-105">
+                    <p class="text-sm font-bold uppercase">Suplemento Maletas</p>
+                    <p class="text-4xl font-black my-2">+5€</p>
+                    <p class="text-xs">Me duele la espalda al abrir el maletero.</p>
+                </div>
+                <div class="bg-white border-4 border-black p-6 text-center shadow-lg">
+                    <p class="text-sm font-bold uppercase text-gray-500">Descuento VIP</p>
+                    <p class="text-4xl font-black my-2">-50%</p>
+                    <p class="text-xs">Si conduces tú mientras yo descanso.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-white py-10 text-center">
+        <p class="font-bold uppercase tracking-widest mb-4">Mándame un WhatsApp y ya si eso te leo...</p>
+        <div class="flex justify-center space-x-6 text-3xl">
+            <span>🛋️</span><span>🍺</span><span>😴</span>
+        </div>
+    </footer>
+
+    <script>
+        const reserveBtn = document.getElementById('main-reserve-btn');
+        let clickCount = 0;
+
+        const messages = [
+            "🚕 Reservar Viaje",
+            "¿Seguro?",
+            "¿Pero seguro seguro?",
+            "Mira que no estoy disponible...",
+            "Me pillas fatal ahora mismo.",
+            "En serio, déjame en paz.",
+            "QUE ESTOY DURMIENDO, PESADO.",
+            "Hala, me has despertado.",
+            "VETE A ANDANDO.",
+            "Página bloqueada por pesadez extrema."
+        ];
+
+        reserveBtn.addEventListener('click', () => {
+            clickCount++;
+            
+            if (clickCount < messages.length) {
+                // Cambiar texto
+                reserveBtn.innerText = messages[clickCount];
+                
+                // Efectos visuales según el enfado de Sergio
+                if (clickCount >= 5) {
+                    reserveBtn.classList.add('bg-red-600', 'text-white', 'shaking');
+                    reserveBtn.style.boxShadow = "4px 4px 0px 0px rgba(0,0,0,1)";
+                }
+                
+                if (clickCount === messages.length - 1) {
+                    reserveBtn.disabled = true;
+                    reserveBtn.style.cursor = 'not-allowed';
+                    reserveBtn.style.opacity = '0.5';
+                    // Pequeña broma final
+                    document.body.style.filter = 'grayscale(100%)';
+                }
+            }
+        });
+
+        // Quitar la clase de vibración para que pueda repetirse
+        reserveBtn.addEventListener('animationend', () => {
+            reserveBtn.classList.remove('shaking');
+        });
+    </script>
+</body>
 </html>
+
